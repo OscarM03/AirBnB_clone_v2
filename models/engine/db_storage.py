@@ -21,18 +21,18 @@ class DBStorage:
 
     def __init__(self):
         self.__engine = create_engine("mysql+mysqldb://{}:{}@{}/{}".
-                                    format(getenv("HBNB_MYSQL_USER"),
-                                        getenv("HBNB_MYSQL_PWD"),
-                                        getenv("HBNB_MYSQL_HOST"),
-                                        getenv("HBNB_MYSQL_DB")),
-                                        pool_pre_ping=True)
-    
+                                      format(getenv("HBNB_MYSQL_USER"),
+                                             getenv("HBNB_MYSQL_PWD"),
+                                             getenv("HBNB_MYSQL_HOST"),
+                                             getenv("HBNB_MYSQL_DB")),
+                                      pool_pre_ping=True)
+
         if getenv("HBNB_ENV") == "test":
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
         obj_list = []
-        
+
         if cls is None:
             obj_list = self.__session.query(State).all()
             obj_list.extend(self.__session.query(City).all())
@@ -49,9 +49,9 @@ class DBStorage:
             cls_id = obj.id
             key = "{}.{}".format(cls_name, cls_id)
             obj_dict[key] = obj
-        
+
         return obj_dict
-    
+
     def new(self, obj):
         self.__session.add(obj)
 
