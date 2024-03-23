@@ -14,6 +14,7 @@ class State(BaseModel, Base):
 
     @property
     def cities(self):
+            """cities getter"""
             from models import storage
             cities_list = []
 
